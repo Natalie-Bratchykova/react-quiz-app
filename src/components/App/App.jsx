@@ -10,6 +10,14 @@ import { NextButton } from "../NextButton/NextButton";
 import { Progress } from "../Progress/Progress";
 import { FinishScreen } from "../FinishScreen/FinishScreen";
 
+const initialState = {
+  questions: [],
+  index: 0,
+  status: "loading",
+  answer: null,
+  points: 0,
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "dataReceived":
@@ -36,18 +44,14 @@ const reducer = (state, action) => {
       };
     case "finished":
       return { ...state, status: "finish" };
+    case "Restart":
+      return { ...initialState, status: "ready", questions: state.questions };
     default:
       throw new Error("Action is unknown");
   }
 };
 
-const initialState = {
-  questions: [],
-  index: 0,
-  status: "loading",
-  answer: null,
-  points: 0,
-};
+
 function App() {
   const [{ status, questions, index, answer, points }, dispatch] = useReducer(
     reducer,
@@ -102,7 +106,13 @@ function App() {
         )}
 
         {status === "finish" && (
-          <FinishScreen score={points} maxPoints={allPoints} />
+          <FinishScreen
+            score={points}
+            maxPoints={allPoints}
+            dispatch={dispatch}
+            questions={questions}
+            index={index}
+          />
         )}
       </Main>
     </>
