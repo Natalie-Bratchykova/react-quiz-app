@@ -7,6 +7,8 @@ import { Error } from "../Error/Error";
 import { StartScreen } from "../StartScreen/StartScreen";
 import { Question } from "../Question/Question";
 import { NextButton } from "../NextButton/NextButton";
+import { Progress } from "../Progress/Progress";
+import { FinishScreen } from "../FinishScreen/FinishScreen";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -24,7 +26,7 @@ const reducer = (state, action) => {
         points:
           action.payload === question.correctOption - 1
             ? state.points + question.points
-            : 0,
+            : state.points,
       };
     case "nextQuestion":
       return {
@@ -32,6 +34,8 @@ const reducer = (state, action) => {
         index: state.index + 1,
         answer: null,
       };
+    case "finished":
+      return { ...state, status: "finish" };
     default:
       throw new Error("Action is unknown");
   }
@@ -45,7 +49,7 @@ const initialState = {
   points: 0,
 };
 function App() {
-  const [{ status, questions, index, answer }, dispatch] = useReducer(
+  const [{ status, questions, index, answer, points }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -61,9 +65,13 @@ function App() {
       .catch((err) => dispatch({ type: "dataFailed" }));
   }, []);
 
+  const allPoints = questions.reduce((acc, el) => (acc += el.points), 0);
+
+  const finishCondition = index === questions.length - 1;
   return (
     <>
       <Header />
+
       <Main>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
@@ -72,14 +80,29 @@ function App() {
         )}
         {status === "active" && (
           <>
+            <Progress
+              index={index}
+              questions={questions}
+              answer={answer}
+              currentPoints={points}
+              allPoints={allPoints}
+            />
             <Question
               question={questions[index]}
               dispatch={dispatch}
               answer={answer}
             />
 
-            <NextButton answer={answer} dispatch={dispatch} />
+            <NextButton
+              answer={answer}
+              dispatch={dispatch}
+              finishCond={finishCondition}
+            />
           </>
+        )}
+
+        {status === "finish" && (
+          <FinishScreen score={points} maxPoints={allPoints} />
         )}
       </Main>
     </>
