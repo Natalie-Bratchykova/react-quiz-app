@@ -4,13 +4,17 @@ import { useEffect, useReducer } from "react";
 import "./App.css";
 import { Header } from "../Header";
 import { Main } from "../Main";
+import { Loader } from "../Loader/Loader";
+import { Error } from "../Error/Error";
+import { StartScreen } from "../StartScreen/StartScreen";
+import { Question } from "../Question/Question";
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "dataReceived":
       return { ...state, questions: action.payload, status: "ready" };
     case "dataFailed":
-      return{...state, status:"error"};
+      return { ...state, status: "error" };
     default:
       throw new Error("Action is unknown");
   }
@@ -21,7 +25,7 @@ const initialState = {
   status: "loading",
 };
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [{ status, questions }, dispatch] = useReducer(reducer, initialState);
 
   // fetch on mount
   useEffect(() => {
@@ -31,22 +35,17 @@ function App() {
         console.log(data);
         dispatch({ type: "dataReceived", payload: data });
       })
-      .catch((err) => dispatch({type:"dataFailed"}));
+      .catch((err) => dispatch({ type: "dataFailed" }));
   }, []);
 
   return (
     <>
       <Header />
       <Main>
-        <hgroup className="progress-info">
-          <h2>The progress</h2>
-          <p>
-            <span className="progress-current">1</span>/15
-          </p>
-          <p>
-            Question <span className="progress-current">1</span>
-          </p>
-        </hgroup>
+        {status === "loading" && <Loader />}
+        {status === "error" && <Error />}
+        {status === "ready" && <StartScreen questionsNum={questions.length} />}
+        {status === "active" && <Question />}
       </Main>
     </>
   );

@@ -1,20 +1,20 @@
 {
   "questions": [
     {
-      "question": "Who is the main character of anime 'Yubisaki kara renren'",
-      "options": ["Itsuomi", "Sakura", "Rin", "Oshi"],
+      "question": "How to say SNOW in Japanese",
+      "options": ["雪", "空", "雨", "震え"],
       "correctOption": 1,
       "points": 10
     },
     {
-      "question": "How many seasons of Naruto?",
-      "options": ["1", "2", "3", "4"],
+      "question": "What is Kun-yomi",
+      "options": ["It's a Korean reading of Japanese Kanji", "It's a Japanese reading of Kanji", "It's a Chinese reading of Japanese Kanji", "It's an American fake reading that of Japanese kanji"],
       "correctOption": 2,
       "points": 10
     },
     {
-      "question": "What is love, baby don't ... me",
-      "options": ["fuck", "disturb", "exploit", "hurt"],
+      "question": "Which one from the following list doesn't relate to Love in Japanese",
+      "options": ["愛", "恋", "好き", "行為"],
       "correctOption": 4,
       "points": 10
     },
