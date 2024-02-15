@@ -1,0 +1,34 @@
+{
+  "questions": [
+    {
+      "question": "Who is the main character of anime 'Yubisaki kara renren'",
+      "options": ["Itsuomi", "Sakura", "Rin", "Oshi"],
+      "correctOption": 1,
+      "points": 10
+    },
+    {
+      "question": "How many seasons of Naruto?",
+      "options": ["1", "2", "3", "4"],
+      "correctOption": 2,
+      "points": 10
+    },
+    {
+      "question": "What is love, baby don't ... me",
+      "options": ["fuck", "disturb", "exploit", "hurt"],
+      "correctOption": 4,
+      "points": 10
+    },
+    {
+      "question": "What is reading for the word 薔薇",
+      "options": ["nara", "ara", "bara", "gara"],
+      "correctOption": 3,
+      "points": 10
+    },
+    {
+      "question": "What does word 薔薇 mean",
+      "options": ["sunshine", "depression", "rose", "beauty"],
+      "correctOption": 3,
+      "points": 10
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  padding-top: 2%;
+  padding-left: 5%;
+
+  img {
+    width: 10vw;
+    height: fit-content;
+  }
+
+  &__title {
+    font-family: "Abel", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 6vw;
+    color: #00bbff;
+    margin-left: 4%;
+  }
+}
