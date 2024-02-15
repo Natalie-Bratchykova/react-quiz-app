@@ -1,0 +1,50 @@
+$white: rgba(255, 255, 255, 0.3);
+$blue: rgba(1, 203, 254, 0.7);
+.progress {
+  margin-top: 2%;
+  width: 100%;
+
+  &__bar {
+    width: 100%;
+    background: $white;
+    border-radius: 1em;
+    display: flex;
+    height: 10px;
+    justify-content: space-between;
+  }
+
+  &__item {
+    // border: 1px solid $blue;
+    width: 100%;
+    color: transparent;
+    transition: all 0.2s ease-in;
+
+    &:first-child {
+      border-top-left-radius: 1em;
+      border-bottom-left-radius: 1em;
+    }
+
+    &:last-child {
+      border-top-right-radius: 1em;
+      border-bottom-right-radius: 1em;
+    }
+  }
+
+  .passed {
+    background: $blue;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    padding-top: 1.5%;
+    p {
+      font-size: 20px;
+      strong {
+        color: $blue;
+      }
+    }
+  }
+}
