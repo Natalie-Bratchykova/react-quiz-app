@@ -9,13 +9,16 @@ import { Question } from "../Question/Question";
 import { NextButton } from "../NextButton/NextButton";
 import { Progress } from "../Progress/Progress";
 import { FinishScreen } from "../FinishScreen/FinishScreen";
-
+import { Footer } from "../Footer/Footer";
+import { Timer } from "../Timer/Timer";
+const SECONDS_PER_QUESTION = 30;
 const initialState = {
   questions: [],
   index: 0,
   status: "loading",
   answer: null,
   points: 0,
+  secondRemaining: 10,
 };
 
 const reducer = (state, action) => {
@@ -25,7 +28,11 @@ const reducer = (state, action) => {
     case "dataFailed":
       return { ...state, status: "error" };
     case "start":
-      return { ...state, status: "active" };
+      return {
+        ...state,
+        status: "active",
+        secondRemaining: state.questions.length * SECONDS_PER_QUESTION,
+      };
     case "newAnswer":
       const question = state.questions.at(state.index);
       return {
@@ -46,19 +53,25 @@ const reducer = (state, action) => {
       return { ...state, status: "finish" };
     case "Restart":
       return { ...initialState, status: "ready", questions: state.questions };
+    case "timer":
+      return {
+        ...state,
+        secondRemaining: state.secondRemaining - 1,
+        status: state.secondRemaining === 0 ? "finish" : state.status,
+      };
     default:
       throw new Error("Action is unknown");
   }
 };
 
-
 function App() {
-  const [{ status, questions, index, answer, points }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [
+    { status, questions, index, answer, points, secondRemaining },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   // fetch on mount
+
   useEffect(() => {
     fetch("http://localhost:8000/questions")
       .then((resp) => resp.json())
@@ -96,12 +109,14 @@ function App() {
               dispatch={dispatch}
               answer={answer}
             />
-
-            <NextButton
-              answer={answer}
-              dispatch={dispatch}
-              finishCond={finishCondition}
-            />
+            <Footer>
+              <Timer seconds={secondRemaining} dispatch={dispatch} />
+              <NextButton
+                answer={answer}
+                dispatch={dispatch}
+                finishCond={finishCondition}
+              />
+            </Footer>
           </>
         )}
 

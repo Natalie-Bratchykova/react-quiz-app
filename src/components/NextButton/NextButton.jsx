@@ -2,7 +2,7 @@ import "./style.scss";
 export const NextButton = ({ answer, dispatch , finishCond }) => {
   if (answer === null) return null;
   return (
-    <div className="button-wrapper">
+    // <div className="button-wrapper">
       <button
         className="next-btn"
         onClick={() => {
@@ -14,6 +14,6 @@ export const NextButton = ({ answer, dispatch , finishCond }) => {
       >
         Next
       </button>
-    </div>
+    // </div>
   );
 };

@@ -1,6 +1,16 @@
+.start {
+  margin-top: 5%;
+  text-align: center;
+  h2 {
+    font-size: 40px;
+  }
+  h3 {
+    margin-top: 1%;
+    font-size: 35px;
+  }
 
-  // padding-top: 3%;
-  .next-btn {
+  .btn {
+    margin-top: 2%;
     font-size: 20px;
     padding: 1% 2%;
     background: transparent;
@@ -16,4 +26,4 @@
       color: rgba(1, 203, 254, 1);
     }
   }
-
+}

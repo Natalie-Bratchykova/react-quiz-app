@@ -1,3 +1,4 @@
+import "./style.scss"
 export const StartScreen = ({ questionsNum, dispatch }) => {
   function handleClick() {
     dispatch({ type: "start" });
@@ -6,7 +7,7 @@ export const StartScreen = ({ questionsNum, dispatch }) => {
     <hgroup className="start">
       <h2>Welcome to the React Quiz App!</h2>
       <h3> {questionsNum} questions to test your Japanese knowledge </h3>
-      <button onClick={handleClick}>始めましょう</button>
+      <button className="btn" onClick={handleClick}>始めましょう</button>
     </hgroup>
   );
 };
